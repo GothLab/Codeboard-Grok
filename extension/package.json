@@ -1,0 +1,302 @@
+{
+    "name": "grok",
+    "displayName": "Grok",
+    "repository": {
+        "private": true
+    },
+    "description": "A Mind Map for Development",
+    "version": "1.0.0",
+    "author": "Grok",
+    "publisher": "Adaptilab",
+    "license": "UNLICENSED",
+    "homepage": "https://marketplace.visualstudio.com/items?itemName=Adaptilab.Grok",
+    "bugs": {
+        "url": "https://marketplace.visualstudio.com/items?itemName=Adaptilab.Grok"
+    },
+    "engines": {
+        "vscode": "^1.38.0"
+    },
+    "main": "./dist/extension",
+    "icon": "assets/images/grok.png",
+    "preview": false,
+    "categories": [
+        "Other"
+    ],
+    "galleryBanner": {
+        "color": "#eff1f3",
+        "theme": "light"
+    },
+    "keywords": [],
+    "scripts": {
+        "analyze:bundle": "webpack --env.analyzeBundle",
+        "analyze:deps": "webpack --env.analyzeDeps",
+        "build": "webpack --env.development",
+        "bundle": "npm install --no-save && npm run agent:bundle && webpack --env.production",
+        "bundle:ci": "npm run clean:ci && npm run bundle",
+        "clean": "git clean -Xdf -e !node_modules -e !node_modules/**/* -e !codestream*.info",
+        "clean:ci": "git clean -xdf && npm run webview:clean:ci && npm run agent:clean:ci",
+        "lint": "eslint --fix --ext .ts \"src/{**!(webviews)/*,*}\"",
+        "pack": "vsce package",
+        "pretty": "prettier --config .prettierrc.js --write \"./src/**/*.ts\" \"./src/**/*.js\" ./package.json ./.prettierrc.js",
+        "rebuild": "npm run clean && npm install --no-save && npm run agent:rebuild && npm run build",
+        "test": "npm run agent:test",
+        "watch": "webpack --watch --env.development --info-verbosity verbose",
+        "agent:build": "pushd \"../shared/agent\" && npm run build && popd",
+        "agent:bundle": "pushd \"../shared/agent\" && npm run bundle && popd",
+        "agent:bundle:ci": "pushd \"../shared/agent\" && npm run bundle:ci && popd",
+        "agent:clean:ci": "pushd \"../shared/agent\" && npm run clean:ci && popd",
+        "agent:rebuild": "pushd \"../shared/agent\" && npm run rebuild && popd",
+        "agent:test": "pushd \"../shared/agent\" && npm run test && popd",
+        "agent:watch": "pushd \"../shared/agent\" && npm run watch && popd",
+        "webview:analyze": "webpack --env.analyzeBundleWebview",
+        "webview:build": "webpack --config-name webview --env.development",
+        "webview:clean:ci": "pushd \"../shared/ui\" && npm run clean:ci && popd",
+        "webview:watch": "webpack --watch --config-name webview --env.development --info-verbosity verbose",
+        "preinstall": "pushd \"../shared/ui\" && npm install --no-save && popd",
+        "test:ui:compile": "npx tsc --project ./ui-tests/tsconfig.json",
+        "test:ui": "npm run test:ui:compile && npx extest setup-and-run -u -c 1.55.2 ui-tests/out/*.js"
+    },
+    "dependencies": {
+        "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+        "@sentry/integrations": "^6.3.5",
+        "@sentry/node": "^6.3.5",
+        "core-js": "2.6.9",
+        "date-fns": "1.30.1",
+        "lodash-es": "4.17.15",
+        "uuid": "3.3.2",
+        "vscode-languageclient": "5.2.1",
+        "vsls": "0.3.1291"
+    },
+    "devDependencies": {
+        "@babel/cli": "7.7.0",
+        "@babel/core": "7.7.2",
+        "@babel/plugin-proposal-class-properties": "7.7.0",
+        "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+        "@babel/plugin-proposal-object-rest-spread": "7.6.2",
+        "@babel/plugin-syntax-dynamic-import": "7.2.0",
+        "@babel/plugin-transform-runtime": "7.6.2",
+        "@babel/preset-env": "7.7.1",
+        "@babel/preset-react": "7.7.0",
+        "@babel/preset-typescript": "7.7.2",
+        "@babel/runtime": "7.7.2",
+        "@sentry/webpack-plugin": "^1.15.1",
+        "@types/chai": "^4.2.18",
+        "@types/diff": "4.0.2",
+        "@types/keytar": "4.4.0",
+        "@types/lodash-es": "4.17.3",
+        "@types/mocha": "^8.2.2",
+        "@types/node": "10.11.7",
+        "@types/node-fetch": "2.5.0",
+        "@types/uuid": "3.4.5",
+        "@types/vscode": "1.38.0",
+        "@typescript-eslint/eslint-plugin": "2.18.0",
+        "@typescript-eslint/eslint-plugin-tslint": "2.18.0",
+        "@typescript-eslint/parser": "2.18.0",
+        "babel-loader": "8.0.6",
+        "babel-plugin-styled-components": "1.10.6",
+        "chai": "^4.3.4",
+        "circular-dependency-plugin": "5.0.2",
+        "clean-webpack-plugin": "1.0.1",
+        "css-loader": "3.1.0",
+        "eslint": "6.8.0",
+        "eslint-loader": "3.0.3",
+        "eslint-plugin-import": "2.20.0",
+        "filemanager-webpack-plugin": "2.0.5",
+        "fork-ts-checker-webpack-plugin": "3.1.0",
+        "html-loader": "0.5.5",
+        "html-webpack-inline-source-plugin": "0.0.10",
+        "html-webpack-plugin": "3.2.0",
+        "less": "3.9.0",
+        "less-loader": "5.0.0",
+        "mini-css-extract-plugin": "0.8.0",
+        "mocha": "^8.4.0",
+        "optimize-css-assets-webpack-plugin": "5.0.3",
+        "prettier": "1.19.1",
+        "terser-webpack-plugin": "1.4.4",
+        "ts-loader": "6.2.1",
+        "tsconfig-paths-webpack-plugin": "3.2.0",
+        "tslint": "6.0.0",
+        "typescript": "3.6.4",
+        "vsce": "1.99.0",
+        "vscode-extension-tester": "^4.0.3",
+        "webpack": "4.38.0",
+        "webpack-bundle-analyzer": "3.8.0",
+        "webpack-cli": "3.3.6"
+    },
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Grok",
+            "properties": {
+                "grok.showAvatars": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies whether to show avatars",
+                    "scope": "window"
+                },
+                "grok.showInStatusBar": {
+                    "type": "string",
+                    "enum": [
+                        "left",
+                        "right",
+                        false
+                    ],
+                    "enumDescriptions": [
+                        "Shows the Grok status bar item on the left",
+                        "Shows the Grok status bar item on the right",
+                        "No Grok status bar item will be shown"
+                    ],
+                    "default": "left",
+                    "description": "Specifies whether to show Grok in the status bar",
+                    "scope": "window"
+                },
+                "grok.showShortcutTipOnSelection": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Specifies whether to show a shortcut key tip attached to the selection when you select code",
+                    "scope": "window"
+                },
+                "grok.team": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Specifies an optional team to use to connect to the Grok service",
+                    "scope": "window"
+                },
+                "grok.traceLevel": {
+                    "type": "string",
+                    "default": "verbose",
+                    "enum": [
+                        "silent",
+                        "errors",
+                        "verbose",
+                        "debug"
+                    ],
+                    "description": "Specifies how much (if any) output will be sent to the Grok output channel",
+                    "scope": "window"
+                },
+                "grok.autoStart": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies whether to automatically start Grok on VSCode load.",
+                    "scope": "application"
+                },
+                "grok.sidePanelDefault": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies whether to open Grok in a separate VSCode side panel by default (vs. in the active panel as a tab). Reload window to take effect.",
+                    "scope": "application"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "grok.toggle",
+                "title": "Open/Close Grok",
+                "category": "Grok"
+            },
+            {
+                "command": "grok.newFlow",
+                "title": "Create New Flow",
+                "category": "Grok"
+            },
+            {
+                "command": "grok.addCodeBlock",
+                "title": "Add Highlighted Code",
+                "category": "Grok"
+            },
+            {
+                "command": "grok.changeAutoStart",
+                "title": "Change Auto Start Setting",
+                "category": "Grok"
+            },
+            {
+                "command": "grok.copyToClipboard",
+                "title": "Export Code To Clipboard",
+                "category": "Grok"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "grok.toggle",
+                "args": {
+                    "source": "Shortcut"
+                },
+                "key": "ctrl+shift+/ ctrl+shift+/",
+                "mac": "cmd+alt+G",
+                "when": "grok:status == signedIn"
+            },
+            {
+                "command": "grok.toggle",
+                "args": {
+                    "source": "Shortcut"
+                },
+                "key": "ctrl+shift+/ /",
+                "mac": "cmd+alt+G",
+                "when": "grok:status == signedIn"
+            },
+            {
+                "command": "grok.newFlow",
+                "args": {
+                    "source": "Shortcut"
+                },
+                "key": "ctrl+shift+a",
+                "mac": "cmd+shift+a",
+                "when": "grok:status == signedIn"
+            },
+            {
+                "command": "grok.addCodeBlock",
+                "args": {
+                    "source": "Shortcut"
+                },
+                "key": "ctrl+shift+alt+a",
+                "mac": "cmd+shift+alt+a",
+                "when": "grok:status == signedIn"
+            },
+            {
+                "command": "grok.copyToClipboard",
+                "args": {
+                    "source": "Shortcut"
+                },
+                "key": "ctrl+shift+alt+s",
+                "mac": "cmd+shift+alt+s",
+                "when": "grok:status == signedIn"
+            }
+        ],
+        "menus": {
+            "commandPalette": [
+                {
+                    "command": "grok.toggle",
+                    "when": "grok:status == signedIn"
+                },
+                {
+                    "command": "grok.newFlow",
+                    "when": "grok:status == signedIn"
+                },
+                {
+                    "command": "grok.addCodeBlock",
+                    "when": "grok:status == signedIn"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "grok.newFlow",
+                    "when": "grok:status == signedIn",
+                    "group": "9_zgrok@1"
+                },
+                {
+                    "command": "grok.addCodeBlock",
+                    "when": "grok:status == signedIn",
+                    "group": "9_zgrok@1"
+                },
+                {
+                    "command": "grok.copyToClipboard",
+                    "when": "grok:status == signedIn",
+                    "group": "9_zgrok@1"
+                }
+            ]
+        }
+    },
+    "activationEvents": [
+        "onStartupFinished"
+    ]
+}
